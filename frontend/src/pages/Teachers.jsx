@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout.jsx";
+import IDCardModal from "../components/IDCardModal.jsx";
 import api from "../api/axios.js";
 
 const emptyForm = {
@@ -17,6 +18,7 @@ const Teachers = () => {
   const [form, setForm] = useState(emptyForm);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [idCardTeacher, setIdCardTeacher] = useState(null);
 
   const loadData = async () => {
     setLoading(true);
@@ -36,7 +38,7 @@ const Teachers = () => {
     e.preventDefault();
     setError("");
     try {
-      await api.post("/teachers", {
+      const { data } = await api.post("/teachers", {
         ...form,
         subjectSpecialization: form.subjectSpecialization
           .split(",")
@@ -46,6 +48,7 @@ const Teachers = () => {
       setShowForm(false);
       setForm(emptyForm);
       loadData();
+      setIdCardTeacher(data.data);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to add teacher");
     }
@@ -122,6 +125,12 @@ const Teachers = () => {
                 <td className="px-5 py-3 text-slate-500">{t.subjectSpecialization?.join(", ") || "—"}</td>
                 <td className="px-5 py-3 text-slate-500">{t.phone || "—"}</td>
                 <td className="px-5 py-3 text-right">
+                  <button
+                    onClick={() => setIdCardTeacher(t)}
+                    className="text-navy-900 hover:text-gold-600 text-xs font-medium mr-3"
+                  >
+                    ID card
+                  </button>
                   <button onClick={() => handleDelete(t._id)} className="text-red-500 hover:text-red-700 text-xs font-medium">
                     Remove
                   </button>
@@ -131,6 +140,10 @@ const Teachers = () => {
           </tbody>
         </table>
       </div>
+
+      {idCardTeacher && (
+        <IDCardModal type="teacher" person={idCardTeacher} onClose={() => setIdCardTeacher(null)} />
+      )}
     </Layout>
   );
 };

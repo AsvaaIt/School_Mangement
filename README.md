@@ -13,6 +13,7 @@ A full-stack school management portal built with **Vite + React** (frontend), **
 - Daily attendance marking per class, with per-student summaries
 - Fee tracking with partial payments and status (pending / partial / paid / overdue)
 - School notice board with pinning and audience targeting
+- **Printable ID cards with QR codes** for students and teachers, generated instantly after creation (or on demand from the Students/Teachers list) — the QR code encodes the school code, ID number, and name for quick scanning/verification
 - Clean navy & gold dashboard UI, responsive down to mobile
 
 ## How the multi-tenant setup works

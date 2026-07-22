@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout.jsx";
+import IDCardModal from "../components/IDCardModal.jsx";
 import api from "../api/axios.js";
 
 const emptyForm = {
@@ -22,6 +23,7 @@ const Students = () => {
   const [form, setForm] = useState(emptyForm);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [idCardStudent, setIdCardStudent] = useState(null);
 
   const loadData = async () => {
     setLoading(true);
@@ -53,10 +55,11 @@ const Students = () => {
     e.preventDefault();
     setError("");
     try {
-      await api.post("/students", form);
+      const { data } = await api.post("/students", form);
       setShowForm(false);
       setForm(emptyForm);
       loadData();
+      setIdCardStudent(data.data);
     } catch (err) {
       setError(err.response?.data?.message || "Failed to add student");
     }
@@ -168,6 +171,12 @@ const Students = () => {
                   </span>
                 </td>
                 <td className="px-5 py-3 text-right">
+                  <button
+                    onClick={() => setIdCardStudent(s)}
+                    className="text-navy-900 hover:text-gold-600 text-xs font-medium mr-3"
+                  >
+                    ID card
+                  </button>
                   <button onClick={() => handleDelete(s._id)} className="text-red-500 hover:text-red-700 text-xs font-medium">
                     Remove
                   </button>
@@ -177,6 +186,10 @@ const Students = () => {
           </tbody>
         </table>
       </div>
+
+      {idCardStudent && (
+        <IDCardModal type="student" person={idCardStudent} onClose={() => setIdCardStudent(null)} />
+      )}
     </Layout>
   );
 };
