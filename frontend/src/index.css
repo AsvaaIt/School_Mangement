@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: #E8A33D;
+  color: #1B2A4A;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid #E8A33D;
+  outline-offset: 2px;
+}
