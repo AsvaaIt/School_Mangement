@@ -56,7 +56,7 @@ const Login = () => {
             A
           </div>
           <div>
-            <p className="font-display font-semibold text-lg leading-tight">ASVAA IT</p>
+            <p className="font-display font-semibold text-lg leading-tight">ASVAA Education</p>
             <p className="text-xs text-white/60">School Management Portal</p>
           </div>
         </div>

@@ -25,7 +25,7 @@ const Sidebar = () => {
           </div>
           <div className="min-w-0">
             <p className="font-display font-semibold leading-tight truncate">{schoolName}</p>
-            <p className="text-xs text-white/60 leading-tight">ASVAA IT Portal</p>
+            <p className="text-xs text-white/60 leading-tight">ASVAA Education</p>
           </div>
         </div>
       </div>
