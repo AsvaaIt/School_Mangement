@@ -14,6 +14,9 @@ A full-stack school management portal built with **Vite + React** (frontend), **
 - Fee tracking with partial payments and status (pending / partial / paid / overdue)
 - School notice board with pinning and audience targeting
 - **Printable ID cards with QR codes** for students and teachers, generated instantly after creation (or on demand from the Students/Teachers list) — the QR code encodes the school code, ID number, and name for quick scanning/verification
+- **AI chatbot assistant** (powered by SambaNova Cloud), floating on every page:
+  - **Logged out**: a scoped FAQ helper that only knows the school's public info (name, address, contact) and how the portal works — it cannot see or invent any student/staff data.
+  - **Logged in**: a tool-calling assistant that can look up this school's own live data on request — student search, attendance summaries, fee status, overdue fees, and recent notices — by calling backend functions rather than guessing.
 - Clean navy & gold dashboard UI, responsive down to mobile
 
 ## How the multi-tenant setup works
@@ -117,6 +120,23 @@ All endpoints are prefixed with `/api`. `/schools` and `/auth/register` + `/auth
 | POST   | `/fees/:id/pay`                   | Record a payment                    | admin                 |
 | GET    | `/notices`                        | List notices                        | any authenticated     |
 | POST   | `/notices`                        | Post a notice                       | admin, teacher        |
+| POST   | `/chat/public`                    | Public FAQ chat (requires `schoolCode` in body) | public     |
+| POST   | `/chat/staff`                     | Staff assistant chat, with live-data tool access | any authenticated |
+
+## Setting up the AI chatbot
+
+The chatbot uses [SambaNova Cloud](https://cloud.sambanova.ai)'s OpenAI-compatible API. To enable it:
+
+1. Get an API key from `cloud.sambanova.ai/apis`.
+2. In `backend/.env`, set:
+   ```
+   SAMBANOVA_API_KEY=your_key_here
+   SAMBANOVA_MODEL=Meta-Llama-3.3-70B-Instruct
+   ```
+3. Restart the backend. The chat bubble (bottom-right, on every page) will start working automatically once a school code exists in the browser — no frontend config needed.
+
+If `SAMBANOVA_API_KEY` isn't set, chat requests will fail with a clear error message rather than the app silently breaking elsewhere.
+
 
 ## Notes on production readiness
 

@@ -13,6 +13,7 @@ import classRoutes from "./routes/classRoutes.js";
 import attendanceRoutes from "./routes/attendanceRoutes.js";
 import feeRoutes from "./routes/feeRoutes.js";
 import noticeRoutes from "./routes/noticeRoutes.js";
+import chatRoutes from "./routes/chatRoutes.js";
 
 dotenv.config();
 connectMasterDB();
@@ -35,6 +36,7 @@ app.use("/api/classes", classRoutes);
 app.use("/api/attendance", attendanceRoutes);
 app.use("/api/fees", feeRoutes);
 app.use("/api/notices", noticeRoutes);
+app.use("/api/chat", chatRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -11,6 +11,7 @@ import AttendancePage from "./pages/Attendance.jsx";
 import Fees from "./pages/Fees.jsx";
 import Notices from "./pages/Notices.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import ChatWidget from "./components/ChatWidget.jsx";
 import { useAuth } from "./context/AuthContext.jsx";
 
 function Landing() {
@@ -22,22 +23,25 @@ function Landing() {
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/create-school" element={<CreateSchool />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
+    <>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/create-school" element={<CreateSchool />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
-      <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      <Route path="/students" element={<ProtectedRoute><Students /></ProtectedRoute>} />
-      <Route path="/teachers" element={<ProtectedRoute><Teachers /></ProtectedRoute>} />
-      <Route path="/classes" element={<ProtectedRoute><Classes /></ProtectedRoute>} />
-      <Route path="/attendance" element={<ProtectedRoute><AttendancePage /></ProtectedRoute>} />
-      <Route path="/fees" element={<ProtectedRoute><Fees /></ProtectedRoute>} />
-      <Route path="/notices" element={<ProtectedRoute><Notices /></ProtectedRoute>} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/students" element={<ProtectedRoute><Students /></ProtectedRoute>} />
+        <Route path="/teachers" element={<ProtectedRoute><Teachers /></ProtectedRoute>} />
+        <Route path="/classes" element={<ProtectedRoute><Classes /></ProtectedRoute>} />
+        <Route path="/attendance" element={<ProtectedRoute><AttendancePage /></ProtectedRoute>} />
+        <Route path="/fees" element={<ProtectedRoute><Fees /></ProtectedRoute>} />
+        <Route path="/notices" element={<ProtectedRoute><Notices /></ProtectedRoute>} />
 
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+      <ChatWidget />
+    </>
   );
 }
 
